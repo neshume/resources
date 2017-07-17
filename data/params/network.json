@@ -1,0 +1,1503 @@
+{
+  "layer": [
+    {
+      "features": 3, 
+      "top": "data", 
+      "height": 500, 
+      "width": 500, 
+      "type": "Data", 
+      "name": "data"
+    }, 
+    {
+      "name": "vga2tiny", 
+      "bottom": [
+        "data"
+      ], 
+      "top": "tiny_data", 
+      "convolution_param": {
+        "kernel_w": 0, 
+        "pad_h": 0, 
+        "group": 1, 
+        "stride_w": 0, 
+        "num_output": 3, 
+        "stride": 2, 
+        "stride_h": 0, 
+        "pad": 0, 
+        "kernel_h": 0, 
+        "pad_w": 0, 
+        "bias_term": true, 
+        "kernel_size": 2, 
+        "axis": 1
+      }, 
+      "weights_shape": {
+        "input_features": 3, 
+        "output_features": 3, 
+        "width": 2, 
+        "height": 2
+      }, 
+      "type": "Convolution"
+    }, 
+    {
+      "padding_param": {
+        "pad_l": 2, 
+        "pad_b": 3, 
+        "pad_r": 3, 
+        "pad_method": 1, 
+        "pad_value": 0, 
+        "pad_t": 2
+      }, 
+      "top": "pad1_1", 
+      "type": "Padding", 
+      "name": "pad1_1", 
+      "bottom": [
+        "tiny_data"
+      ]
+    }, 
+    {
+      "name": "conv1", 
+      "bottom": [
+        "pad1_1"
+      ], 
+      "top": "conv1", 
+      "convolution_param": {
+        "kernel_w": 0, 
+        "pad_h": 0, 
+        "group": 1, 
+        "stride_w": 0, 
+        "num_output": 64, 
+        "weight_filler": {
+          "std": 1, 
+          "variance_norm": 0, 
+          "min": 0, 
+          "max": 1, 
+          "value": 0, 
+          "sparse": -1, 
+          "type": "xavier", 
+          "mean": 0
+        }, 
+        "stride": 2, 
+        "stride_h": 0, 
+        "pad": 0, 
+        "kernel_h": 0, 
+        "pad_w": 0, 
+        "bias_term": true, 
+        "kernel_size": 7, 
+        "axis": 1
+      }, 
+      "weights_shape": {
+        "input_features": 3, 
+        "output_features": 64, 
+        "width": 7, 
+        "height": 7
+      }, 
+      "type": "Convolution"
+    }, 
+    {
+      "top": "conv1", 
+      "type": "ReLU", 
+      "name": "relu_conv1", 
+      "bottom": [
+        "conv1"
+      ]
+    }, 
+    {
+      "padding_param": {
+        "pad_l": 0, 
+        "pad_b": 1, 
+        "pad_r": 1, 
+        "pad_method": 1, 
+        "pad_value": 0, 
+        "pad_t": 0
+      }, 
+      "top": "pad1_2", 
+      "type": "Padding", 
+      "name": "pad1_2", 
+      "bottom": [
+        "conv1"
+      ]
+    }, 
+    {
+      "pooling_param": {
+        "global_pooling": false, 
+        "kernel_w": 0, 
+        "pad_h": 0, 
+        "stride_w": 0, 
+        "stride_h": 0, 
+        "stride": 2, 
+        "pad": 0, 
+        "pool": 0, 
+        "kernel_h": 0, 
+        "pad_w": 0, 
+        "kernel_size": 3
+      }, 
+      "top": "pool1", 
+      "type": "Pooling", 
+      "name": "pool1", 
+      "bottom": [
+        "pad1_2"
+      ]
+    }, 
+    {
+      "name": "res2_conv1", 
+      "bottom": [
+        "pool1"
+      ], 
+      "top": "res2_conv1", 
+      "convolution_param": {
+        "kernel_w": 0, 
+        "pad_h": 0, 
+        "group": 1, 
+        "stride_w": 0, 
+        "num_output": 64, 
+        "weight_filler": {
+          "std": 1, 
+          "variance_norm": 0, 
+          "min": 0, 
+          "max": 1, 
+          "value": 0, 
+          "sparse": -1, 
+          "type": "xavier", 
+          "mean": 0
+        }, 
+        "stride": 1, 
+        "stride_h": 0, 
+        "pad": 1, 
+        "kernel_h": 0, 
+        "pad_w": 0, 
+        "bias_term": true, 
+        "kernel_size": 3, 
+        "axis": 1
+      }, 
+      "weights_shape": {
+        "input_features": 64, 
+        "output_features": 64, 
+        "width": 3, 
+        "height": 3
+      }, 
+      "type": "Convolution"
+    }, 
+    {
+      "top": "res2_conv1", 
+      "type": "ReLU", 
+      "name": "res2_relu1", 
+      "bottom": [
+        "res2_conv1"
+      ]
+    }, 
+    {
+      "name": "res2_conv2", 
+      "bottom": [
+        "res2_conv1"
+      ], 
+      "top": "res2_conv2", 
+      "convolution_param": {
+        "kernel_w": 0, 
+        "pad_h": 0, 
+        "group": 1, 
+        "stride_w": 0, 
+        "num_output": 64, 
+        "weight_filler": {
+          "std": 1, 
+          "variance_norm": 0, 
+          "min": 0, 
+          "max": 1, 
+          "value": 0, 
+          "sparse": -1, 
+          "type": "xavier", 
+          "mean": 0
+        }, 
+        "stride": 1, 
+        "stride_h": 0, 
+        "pad": 1, 
+        "kernel_h": 0, 
+        "pad_w": 0, 
+        "bias_term": true, 
+        "kernel_size": 3, 
+        "axis": 1
+      }, 
+      "weights_shape": {
+        "input_features": 64, 
+        "output_features": 64, 
+        "width": 3, 
+        "height": 3
+      }, 
+      "type": "Convolution"
+    }, 
+    {
+      "top": "res2_sum", 
+      "type": "Eltwise", 
+      "name": "res2_sum", 
+      "eltwise_param": {
+        "operation": 1
+      }, 
+      "bottom": [
+        "pool1", 
+        "res2_conv2"
+      ]
+    }, 
+    {
+      "top": "res2_sum", 
+      "type": "ReLU", 
+      "name": "res2_relu2", 
+      "bottom": [
+        "res2_sum"
+      ]
+    }, 
+    {
+      "name": "res3_conv1", 
+      "bottom": [
+        "res2_sum"
+      ], 
+      "top": "res3_conv1", 
+      "convolution_param": {
+        "kernel_w": 0, 
+        "pad_h": 0, 
+        "group": 1, 
+        "stride_w": 0, 
+        "num_output": 64, 
+        "weight_filler": {
+          "std": 1, 
+          "variance_norm": 0, 
+          "min": 0, 
+          "max": 1, 
+          "value": 0, 
+          "sparse": -1, 
+          "type": "xavier", 
+          "mean": 0
+        }, 
+        "stride": 1, 
+        "stride_h": 0, 
+        "pad": 1, 
+        "kernel_h": 0, 
+        "pad_w": 0, 
+        "bias_term": true, 
+        "kernel_size": 3, 
+        "axis": 1
+      }, 
+      "weights_shape": {
+        "input_features": 64, 
+        "output_features": 64, 
+        "width": 3, 
+        "height": 3
+      }, 
+      "type": "Convolution"
+    }, 
+    {
+      "top": "res3_conv1", 
+      "type": "ReLU", 
+      "name": "res3_relu1", 
+      "bottom": [
+        "res3_conv1"
+      ]
+    }, 
+    {
+      "name": "res3_conv2", 
+      "bottom": [
+        "res3_conv1"
+      ], 
+      "top": "res3_conv2", 
+      "convolution_param": {
+        "kernel_w": 0, 
+        "pad_h": 0, 
+        "group": 1, 
+        "stride_w": 0, 
+        "num_output": 64, 
+        "weight_filler": {
+          "std": 1, 
+          "variance_norm": 0, 
+          "min": 0, 
+          "max": 1, 
+          "value": 0, 
+          "sparse": -1, 
+          "type": "xavier", 
+          "mean": 0
+        }, 
+        "stride": 1, 
+        "stride_h": 0, 
+        "pad": 1, 
+        "kernel_h": 0, 
+        "pad_w": 0, 
+        "bias_term": true, 
+        "kernel_size": 3, 
+        "axis": 1
+      }, 
+      "weights_shape": {
+        "input_features": 64, 
+        "output_features": 64, 
+        "width": 3, 
+        "height": 3
+      }, 
+      "type": "Convolution"
+    }, 
+    {
+      "top": "res3_sum", 
+      "type": "Eltwise", 
+      "name": "res3_sum", 
+      "eltwise_param": {
+        "operation": 1
+      }, 
+      "bottom": [
+        "res2_sum", 
+        "res3_conv2"
+      ]
+    }, 
+    {
+      "top": "res3_sum", 
+      "type": "ReLU", 
+      "name": "res3_relu2", 
+      "bottom": [
+        "res3_sum"
+      ]
+    }, 
+    {
+      "padding_param": {
+        "pad_l": 0, 
+        "pad_b": 1, 
+        "pad_r": 1, 
+        "pad_method": 1, 
+        "pad_value": 0, 
+        "pad_t": 0
+      }, 
+      "top": "res4_pad", 
+      "type": "Padding", 
+      "name": "res4_pad", 
+      "bottom": [
+        "res3_sum"
+      ]
+    }, 
+    {
+      "name": "res4_conv1", 
+      "bottom": [
+        "res4_pad"
+      ], 
+      "top": "res4_conv1", 
+      "convolution_param": {
+        "kernel_w": 0, 
+        "pad_h": 0, 
+        "group": 1, 
+        "stride_w": 0, 
+        "num_output": 128, 
+        "weight_filler": {
+          "std": 1, 
+          "variance_norm": 0, 
+          "min": 0, 
+          "max": 1, 
+          "value": 0, 
+          "sparse": -1, 
+          "type": "xavier", 
+          "mean": 0
+        }, 
+        "stride": 2, 
+        "stride_h": 0, 
+        "pad": 0, 
+        "kernel_h": 0, 
+        "pad_w": 0, 
+        "bias_term": true, 
+        "kernel_size": 3, 
+        "axis": 1
+      }, 
+      "weights_shape": {
+        "input_features": 64, 
+        "output_features": 128, 
+        "width": 3, 
+        "height": 3
+      }, 
+      "type": "Convolution"
+    }, 
+    {
+      "top": "res4_conv1", 
+      "type": "ReLU", 
+      "name": "res4_relu1", 
+      "bottom": [
+        "res4_conv1"
+      ]
+    }, 
+    {
+      "name": "res4_conv2", 
+      "bottom": [
+        "res4_conv1"
+      ], 
+      "top": "res4_conv2", 
+      "convolution_param": {
+        "kernel_w": 0, 
+        "pad_h": 0, 
+        "group": 1, 
+        "stride_w": 0, 
+        "num_output": 128, 
+        "weight_filler": {
+          "std": 1, 
+          "variance_norm": 0, 
+          "min": 0, 
+          "max": 1, 
+          "value": 0, 
+          "sparse": -1, 
+          "type": "xavier", 
+          "mean": 0
+        }, 
+        "stride": 1, 
+        "stride_h": 0, 
+        "pad": 1, 
+        "kernel_h": 0, 
+        "pad_w": 0, 
+        "bias_term": true, 
+        "kernel_size": 3, 
+        "axis": 1
+      }, 
+      "weights_shape": {
+        "input_features": 128, 
+        "output_features": 128, 
+        "width": 3, 
+        "height": 3
+      }, 
+      "type": "Convolution"
+    }, 
+    {
+      "name": "res4_conv3", 
+      "bottom": [
+        "res3_sum"
+      ], 
+      "top": "res4_conv3", 
+      "convolution_param": {
+        "kernel_w": 0, 
+        "pad_h": 0, 
+        "group": 1, 
+        "stride_w": 0, 
+        "num_output": 128, 
+        "weight_filler": {
+          "std": 1, 
+          "variance_norm": 0, 
+          "min": 0, 
+          "max": 1, 
+          "value": 0, 
+          "sparse": -1, 
+          "type": "xavier", 
+          "mean": 0
+        }, 
+        "stride": 2, 
+        "stride_h": 0, 
+        "pad": 0, 
+        "kernel_h": 0, 
+        "pad_w": 0, 
+        "bias_term": true, 
+        "kernel_size": 1, 
+        "axis": 1
+      }, 
+      "weights_shape": {
+        "input_features": 64, 
+        "output_features": 128, 
+        "width": 1, 
+        "height": 1
+      }, 
+      "type": "Convolution"
+    }, 
+    {
+      "top": "res4_crop", 
+      "type": "Crop", 
+      "name": "res4_crop", 
+      "bottom": [
+        "res4_conv3", 
+        "res4_conv2"
+      ]
+    }, 
+    {
+      "top": "res4_sum", 
+      "type": "Eltwise", 
+      "name": "res4_sum", 
+      "eltwise_param": {
+        "operation": 1
+      }, 
+      "bottom": [
+        "res4_crop", 
+        "res4_conv2"
+      ]
+    }, 
+    {
+      "top": "res4_sum", 
+      "type": "ReLU", 
+      "name": "res4_relu2", 
+      "bottom": [
+        "res4_sum"
+      ]
+    }, 
+    {
+      "name": "res5_conv1", 
+      "bottom": [
+        "res4_sum"
+      ], 
+      "top": "res5_conv1", 
+      "convolution_param": {
+        "kernel_w": 0, 
+        "pad_h": 0, 
+        "group": 1, 
+        "stride_w": 0, 
+        "num_output": 128, 
+        "weight_filler": {
+          "std": 1, 
+          "variance_norm": 0, 
+          "min": 0, 
+          "max": 1, 
+          "value": 0, 
+          "sparse": -1, 
+          "type": "xavier", 
+          "mean": 0
+        }, 
+        "stride": 1, 
+        "stride_h": 0, 
+        "pad": 1, 
+        "kernel_h": 0, 
+        "pad_w": 0, 
+        "bias_term": true, 
+        "kernel_size": 3, 
+        "axis": 1
+      }, 
+      "weights_shape": {
+        "input_features": 128, 
+        "output_features": 128, 
+        "width": 3, 
+        "height": 3
+      }, 
+      "type": "Convolution"
+    }, 
+    {
+      "top": "res5_conv1", 
+      "type": "ReLU", 
+      "name": "res5_relu1", 
+      "bottom": [
+        "res5_conv1"
+      ]
+    }, 
+    {
+      "name": "res5_conv2", 
+      "bottom": [
+        "res5_conv1"
+      ], 
+      "top": "res5_conv2", 
+      "convolution_param": {
+        "kernel_w": 0, 
+        "pad_h": 0, 
+        "group": 1, 
+        "stride_w": 0, 
+        "num_output": 128, 
+        "weight_filler": {
+          "std": 1, 
+          "variance_norm": 0, 
+          "min": 0, 
+          "max": 1, 
+          "value": 0, 
+          "sparse": -1, 
+          "type": "xavier", 
+          "mean": 0
+        }, 
+        "stride": 1, 
+        "stride_h": 0, 
+        "pad": 1, 
+        "kernel_h": 0, 
+        "pad_w": 0, 
+        "bias_term": true, 
+        "kernel_size": 3, 
+        "axis": 1
+      }, 
+      "weights_shape": {
+        "input_features": 128, 
+        "output_features": 128, 
+        "width": 3, 
+        "height": 3
+      }, 
+      "type": "Convolution"
+    }, 
+    {
+      "top": "res5_sum", 
+      "type": "Eltwise", 
+      "name": "res5_sum", 
+      "eltwise_param": {
+        "operation": 1
+      }, 
+      "bottom": [
+        "res4_sum", 
+        "res5_conv2"
+      ]
+    }, 
+    {
+      "top": "res5_sum", 
+      "type": "ReLU", 
+      "name": "res5_relu2", 
+      "bottom": [
+        "res5_sum"
+      ]
+    }, 
+    {
+      "padding_param": {
+        "pad_l": 0, 
+        "pad_b": 1, 
+        "pad_r": 1, 
+        "pad_method": 1, 
+        "pad_value": 0, 
+        "pad_t": 0
+      }, 
+      "top": "res6_pad", 
+      "type": "Padding", 
+      "name": "res6_pad", 
+      "bottom": [
+        "res5_sum"
+      ]
+    }, 
+    {
+      "name": "res6_conv1_new", 
+      "bottom": [
+        "res6_pad"
+      ], 
+      "top": "res6_conv1_new", 
+      "convolution_param": {
+        "kernel_w": 0, 
+        "pad_h": 0, 
+        "group": 1, 
+        "stride_w": 0, 
+        "num_output": 128, 
+        "weight_filler": {
+          "std": 1, 
+          "variance_norm": 0, 
+          "min": 0, 
+          "max": 1, 
+          "value": 0, 
+          "sparse": -1, 
+          "type": "xavier", 
+          "mean": 0
+        }, 
+        "stride": 2, 
+        "stride_h": 0, 
+        "pad": 0, 
+        "kernel_h": 0, 
+        "pad_w": 0, 
+        "bias_term": true, 
+        "kernel_size": 3, 
+        "axis": 1
+      }, 
+      "weights_shape": {
+        "input_features": 128, 
+        "output_features": 128, 
+        "width": 3, 
+        "height": 3
+      }, 
+      "type": "Convolution"
+    }, 
+    {
+      "top": "res6_conv1_new", 
+      "type": "ReLU", 
+      "name": "res6_relu1", 
+      "bottom": [
+        "res6_conv1_new"
+      ]
+    }, 
+    {
+      "name": "res6_conv2_new", 
+      "bottom": [
+        "res6_conv1_new"
+      ], 
+      "top": "res6_conv2_new", 
+      "convolution_param": {
+        "kernel_w": 0, 
+        "pad_h": 0, 
+        "group": 1, 
+        "stride_w": 0, 
+        "num_output": 128, 
+        "weight_filler": {
+          "std": 1, 
+          "variance_norm": 0, 
+          "min": 0, 
+          "max": 1, 
+          "value": 0, 
+          "sparse": -1, 
+          "type": "xavier", 
+          "mean": 0
+        }, 
+        "stride": 1, 
+        "stride_h": 0, 
+        "pad": 1, 
+        "kernel_h": 0, 
+        "pad_w": 0, 
+        "bias_term": true, 
+        "kernel_size": 3, 
+        "axis": 1
+      }, 
+      "weights_shape": {
+        "input_features": 128, 
+        "output_features": 128, 
+        "width": 3, 
+        "height": 3
+      }, 
+      "type": "Convolution"
+    }, 
+    {
+      "name": "res6_conv3_new", 
+      "bottom": [
+        "res5_sum"
+      ], 
+      "top": "res6_conv3_new", 
+      "convolution_param": {
+        "kernel_w": 0, 
+        "pad_h": 0, 
+        "group": 1, 
+        "stride_w": 0, 
+        "num_output": 128, 
+        "weight_filler": {
+          "std": 1, 
+          "variance_norm": 0, 
+          "min": 0, 
+          "max": 1, 
+          "value": 0, 
+          "sparse": -1, 
+          "type": "xavier", 
+          "mean": 0
+        }, 
+        "stride": 2, 
+        "stride_h": 0, 
+        "pad": 0, 
+        "kernel_h": 0, 
+        "pad_w": 0, 
+        "bias_term": true, 
+        "kernel_size": 1, 
+        "axis": 1
+      }, 
+      "weights_shape": {
+        "input_features": 128, 
+        "output_features": 128, 
+        "width": 1, 
+        "height": 1
+      }, 
+      "type": "Convolution"
+    }, 
+    {
+      "top": "res6_crop", 
+      "type": "Crop", 
+      "name": "res6_crop", 
+      "bottom": [
+        "res6_conv3_new", 
+        "res6_conv2_new"
+      ]
+    }, 
+    {
+      "top": "res6_sum", 
+      "type": "Eltwise", 
+      "name": "res6_sum", 
+      "eltwise_param": {
+        "operation": 1
+      }, 
+      "bottom": [
+        "res6_crop", 
+        "res6_conv2_new"
+      ]
+    }, 
+    {
+      "top": "res6_sum", 
+      "type": "ReLU", 
+      "name": "res6_relu2", 
+      "bottom": [
+        "res6_sum"
+      ]
+    }, 
+    {
+      "name": "res7_conv1_new", 
+      "bottom": [
+        "res6_sum"
+      ], 
+      "top": "res7_conv1_new", 
+      "convolution_param": {
+        "kernel_w": 0, 
+        "pad_h": 0, 
+        "group": 1, 
+        "stride_w": 0, 
+        "num_output": 128, 
+        "weight_filler": {
+          "std": 1, 
+          "variance_norm": 0, 
+          "min": 0, 
+          "max": 1, 
+          "value": 0, 
+          "sparse": -1, 
+          "type": "xavier", 
+          "mean": 0
+        }, 
+        "stride": 1, 
+        "stride_h": 0, 
+        "pad": 1, 
+        "kernel_h": 0, 
+        "pad_w": 0, 
+        "bias_term": true, 
+        "kernel_size": 3, 
+        "axis": 1
+      }, 
+      "weights_shape": {
+        "input_features": 128, 
+        "output_features": 128, 
+        "width": 3, 
+        "height": 3
+      }, 
+      "type": "Convolution"
+    }, 
+    {
+      "top": "res7_conv1_new", 
+      "type": "ReLU", 
+      "name": "res7_relu1", 
+      "bottom": [
+        "res7_conv1_new"
+      ]
+    }, 
+    {
+      "name": "res7_conv2_new", 
+      "bottom": [
+        "res7_conv1_new"
+      ], 
+      "top": "res7_conv2_new", 
+      "convolution_param": {
+        "kernel_w": 0, 
+        "pad_h": 0, 
+        "group": 1, 
+        "stride_w": 0, 
+        "num_output": 128, 
+        "weight_filler": {
+          "std": 1, 
+          "variance_norm": 0, 
+          "min": 0, 
+          "max": 1, 
+          "value": 0, 
+          "sparse": -1, 
+          "type": "xavier", 
+          "mean": 0
+        }, 
+        "stride": 1, 
+        "stride_h": 0, 
+        "pad": 1, 
+        "kernel_h": 0, 
+        "pad_w": 0, 
+        "bias_term": true, 
+        "kernel_size": 3, 
+        "axis": 1
+      }, 
+      "weights_shape": {
+        "input_features": 128, 
+        "output_features": 128, 
+        "width": 3, 
+        "height": 3
+      }, 
+      "type": "Convolution"
+    }, 
+    {
+      "top": "res7_sum", 
+      "type": "Eltwise", 
+      "name": "res7_sum", 
+      "eltwise_param": {
+        "operation": 1
+      }, 
+      "bottom": [
+        "res6_sum", 
+        "res7_conv2_new"
+      ]
+    }, 
+    {
+      "top": "res7_sum", 
+      "type": "ReLU", 
+      "name": "res7_relu2", 
+      "bottom": [
+        "res7_sum"
+      ]
+    }, 
+    {
+      "padding_param": {
+        "pad_l": 0, 
+        "pad_b": 1, 
+        "pad_r": 1, 
+        "pad_method": 1, 
+        "pad_value": 0, 
+        "pad_t": 0
+      }, 
+      "top": "res8_pad", 
+      "type": "Padding", 
+      "name": "res8_pad", 
+      "bottom": [
+        "res7_sum"
+      ]
+    }, 
+    {
+      "name": "res8_conv1_new", 
+      "bottom": [
+        "res8_pad"
+      ], 
+      "top": "res8_conv1_new", 
+      "convolution_param": {
+        "kernel_w": 0, 
+        "pad_h": 0, 
+        "group": 1, 
+        "stride_w": 0, 
+        "num_output": 128, 
+        "weight_filler": {
+          "std": 1, 
+          "variance_norm": 0, 
+          "min": 0, 
+          "max": 1, 
+          "value": 0, 
+          "sparse": -1, 
+          "type": "xavier", 
+          "mean": 0
+        }, 
+        "stride": 2, 
+        "stride_h": 0, 
+        "pad": 0, 
+        "kernel_h": 0, 
+        "pad_w": 0, 
+        "bias_term": true, 
+        "kernel_size": 3, 
+        "axis": 1
+      }, 
+      "weights_shape": {
+        "input_features": 128, 
+        "output_features": 128, 
+        "width": 3, 
+        "height": 3
+      }, 
+      "type": "Convolution"
+    }, 
+    {
+      "top": "res8_conv1_new", 
+      "type": "ReLU", 
+      "name": "res8_relu1", 
+      "bottom": [
+        "res8_conv1_new"
+      ]
+    }, 
+    {
+      "name": "res8_conv2_new", 
+      "bottom": [
+        "res8_conv1_new"
+      ], 
+      "top": "res8_conv2_new", 
+      "convolution_param": {
+        "kernel_w": 0, 
+        "pad_h": 0, 
+        "group": 1, 
+        "stride_w": 0, 
+        "num_output": 128, 
+        "weight_filler": {
+          "std": 1, 
+          "variance_norm": 0, 
+          "min": 0, 
+          "max": 1, 
+          "value": 0, 
+          "sparse": -1, 
+          "type": "xavier", 
+          "mean": 0
+        }, 
+        "stride": 1, 
+        "stride_h": 0, 
+        "pad": 1, 
+        "kernel_h": 0, 
+        "pad_w": 0, 
+        "bias_term": true, 
+        "kernel_size": 3, 
+        "axis": 1
+      }, 
+      "weights_shape": {
+        "input_features": 128, 
+        "output_features": 128, 
+        "width": 3, 
+        "height": 3
+      }, 
+      "type": "Convolution"
+    }, 
+    {
+      "name": "res8_conv3_new", 
+      "bottom": [
+        "res7_sum"
+      ], 
+      "top": "res8_conv3_new", 
+      "convolution_param": {
+        "kernel_w": 0, 
+        "pad_h": 0, 
+        "group": 1, 
+        "stride_w": 0, 
+        "num_output": 128, 
+        "weight_filler": {
+          "std": 1, 
+          "variance_norm": 0, 
+          "min": 0, 
+          "max": 1, 
+          "value": 0, 
+          "sparse": -1, 
+          "type": "xavier", 
+          "mean": 0
+        }, 
+        "stride": 2, 
+        "stride_h": 0, 
+        "pad": 0, 
+        "kernel_h": 0, 
+        "pad_w": 0, 
+        "bias_term": true, 
+        "kernel_size": 1, 
+        "axis": 1
+      }, 
+      "weights_shape": {
+        "input_features": 128, 
+        "output_features": 128, 
+        "width": 1, 
+        "height": 1
+      }, 
+      "type": "Convolution"
+    }, 
+    {
+      "top": "res8_crop", 
+      "type": "Crop", 
+      "name": "res8_crop", 
+      "bottom": [
+        "res8_conv3_new", 
+        "res8_conv2_new"
+      ]
+    }, 
+    {
+      "top": "res8_sum", 
+      "type": "Eltwise", 
+      "name": "res8_sum", 
+      "eltwise_param": {
+        "operation": 1
+      }, 
+      "bottom": [
+        "res8_crop", 
+        "res8_conv2_new"
+      ]
+    }, 
+    {
+      "top": "res8_sum", 
+      "type": "ReLU", 
+      "name": "res8_relu2", 
+      "bottom": [
+        "res8_sum"
+      ]
+    }, 
+    {
+      "name": "res9_conv1_new", 
+      "bottom": [
+        "res8_sum"
+      ], 
+      "top": "res9_conv1_new", 
+      "convolution_param": {
+        "kernel_w": 0, 
+        "pad_h": 0, 
+        "group": 1, 
+        "stride_w": 0, 
+        "num_output": 128, 
+        "weight_filler": {
+          "std": 1, 
+          "variance_norm": 0, 
+          "min": 0, 
+          "max": 1, 
+          "value": 0, 
+          "sparse": -1, 
+          "type": "xavier", 
+          "mean": 0
+        }, 
+        "stride": 1, 
+        "stride_h": 0, 
+        "pad": 1, 
+        "kernel_h": 0, 
+        "pad_w": 0, 
+        "bias_term": true, 
+        "kernel_size": 3, 
+        "axis": 1
+      }, 
+      "weights_shape": {
+        "input_features": 128, 
+        "output_features": 128, 
+        "width": 3, 
+        "height": 3
+      }, 
+      "type": "Convolution"
+    }, 
+    {
+      "top": "res9_conv1_new", 
+      "type": "ReLU", 
+      "name": "res9_relu1", 
+      "bottom": [
+        "res9_conv1_new"
+      ]
+    }, 
+    {
+      "name": "res9_conv2_new", 
+      "bottom": [
+        "res9_conv1_new"
+      ], 
+      "top": "res9_conv2_new", 
+      "convolution_param": {
+        "kernel_w": 0, 
+        "pad_h": 0, 
+        "group": 1, 
+        "stride_w": 0, 
+        "num_output": 128, 
+        "weight_filler": {
+          "std": 1, 
+          "variance_norm": 0, 
+          "min": 0, 
+          "max": 1, 
+          "value": 0, 
+          "sparse": -1, 
+          "type": "xavier", 
+          "mean": 0
+        }, 
+        "stride": 1, 
+        "stride_h": 0, 
+        "pad": 1, 
+        "kernel_h": 0, 
+        "pad_w": 0, 
+        "bias_term": true, 
+        "kernel_size": 3, 
+        "axis": 1
+      }, 
+      "weights_shape": {
+        "input_features": 128, 
+        "output_features": 128, 
+        "width": 3, 
+        "height": 3
+      }, 
+      "type": "Convolution"
+    }, 
+    {
+      "top": "res9_sum", 
+      "type": "Eltwise", 
+      "name": "res9_sum", 
+      "eltwise_param": {
+        "operation": 1
+      }, 
+      "bottom": [
+        "res8_sum", 
+        "res9_conv2_new"
+      ]
+    }, 
+    {
+      "top": "res9_sum", 
+      "type": "ReLU", 
+      "name": "res9_relu2", 
+      "bottom": [
+        "res9_sum"
+      ]
+    }, 
+    {
+      "name": "score_fr_new", 
+      "bottom": [
+        "res9_sum"
+      ], 
+      "top": "score_fr_new", 
+      "convolution_param": {
+        "kernel_w": 0, 
+        "pad_h": 0, 
+        "group": 1, 
+        "num_output": 16, 
+        "weight_filler": {
+          "std": 1, 
+          "variance_norm": 0, 
+          "min": 0, 
+          "max": 1, 
+          "value": 0, 
+          "sparse": -1, 
+          "type": "xavier", 
+          "mean": 0
+        }, 
+        "stride_w": 0, 
+        "stride_h": 0, 
+        "pad": 0, 
+        "kernel_h": 0, 
+        "pad_w": 0, 
+        "bias_term": true, 
+        "kernel_size": 1, 
+        "axis": 1
+      }, 
+      "weights_shape": {
+        "input_features": 128, 
+        "output_features": 16, 
+        "width": 1, 
+        "height": 1
+      }, 
+      "type": "Convolution"
+    }, 
+    {
+      "name": "up32to16_new", 
+      "bottom": [
+        "score_fr_new"
+      ], 
+      "top": "up32to16_new", 
+      "convolution_param": {
+        "kernel_w": 0, 
+        "pad_h": 0, 
+        "group": 16, 
+        "stride_w": 0, 
+        "num_output": 16, 
+        "stride": 2, 
+        "stride_h": 0, 
+        "kernel_h": 0, 
+        "pad_w": 0, 
+        "bias_term": false, 
+        "kernel_size": 3, 
+        "axis": 1
+      }, 
+      "weights_shape": {
+        "input_features": 1, 
+        "output_features": 16, 
+        "width": 3, 
+        "height": 3
+      }, 
+      "type": "Deconvolution"
+    }, 
+    {
+      "name": "conv32to16_new", 
+      "bottom": [
+        "res7_sum"
+      ], 
+      "top": "conv32to16_new", 
+      "convolution_param": {
+        "kernel_w": 0, 
+        "pad_h": 0, 
+        "group": 1, 
+        "num_output": 32, 
+        "weight_filler": {
+          "std": 1, 
+          "variance_norm": 0, 
+          "min": 0, 
+          "max": 1, 
+          "value": 0, 
+          "sparse": -1, 
+          "type": "xavier", 
+          "mean": 0
+        }, 
+        "stride_w": 0, 
+        "stride_h": 0, 
+        "pad": 1, 
+        "kernel_h": 0, 
+        "pad_w": 0, 
+        "bias_term": true, 
+        "kernel_size": 1, 
+        "axis": 1
+      }, 
+      "weights_shape": {
+        "input_features": 128, 
+        "output_features": 32, 
+        "width": 1, 
+        "height": 1
+      }, 
+      "type": "Convolution"
+    }, 
+    {
+      "top": "crop32to16_new", 
+      "crop_param": {
+        "offset": 0, 
+        "axis": 2
+      }, 
+      "type": "Crop", 
+      "name": "crop32to16_new", 
+      "bottom": [
+        "conv32to16_new", 
+        "up32to16_new"
+      ]
+    }, 
+    {
+      "top": "fuse32to16_new", 
+      "type": "Concat", 
+      "name": "fuse32to16_new", 
+      "bottom": [
+        "crop32to16_new", 
+        "up32to16_new"
+      ]
+    }, 
+    {
+      "name": "up16to8_new", 
+      "bottom": [
+        "fuse32to16_new"
+      ], 
+      "top": "up16to8_new", 
+      "convolution_param": {
+        "kernel_w": 0, 
+        "pad_h": 0, 
+        "group": 48, 
+        "stride_w": 0, 
+        "num_output": 48, 
+        "stride": 2, 
+        "stride_h": 0, 
+        "kernel_h": 0, 
+        "pad_w": 0, 
+        "bias_term": false, 
+        "kernel_size": 3, 
+        "axis": 1
+      }, 
+      "weights_shape": {
+        "input_features": 1, 
+        "output_features": 48, 
+        "width": 3, 
+        "height": 3
+      }, 
+      "type": "Deconvolution"
+    }, 
+    {
+      "name": "conv16to8_new", 
+      "bottom": [
+        "res5_sum"
+      ], 
+      "top": "conv16to8_new", 
+      "convolution_param": {
+        "kernel_w": 0, 
+        "pad_h": 0, 
+        "group": 1, 
+        "num_output": 64, 
+        "weight_filler": {
+          "std": 1, 
+          "variance_norm": 0, 
+          "min": 0, 
+          "max": 1, 
+          "value": 0, 
+          "sparse": -1, 
+          "type": "xavier", 
+          "mean": 0
+        }, 
+        "stride_w": 0, 
+        "stride_h": 0, 
+        "pad": 3, 
+        "kernel_h": 0, 
+        "pad_w": 0, 
+        "bias_term": true, 
+        "kernel_size": 1, 
+        "axis": 1
+      }, 
+      "weights_shape": {
+        "input_features": 128, 
+        "output_features": 64, 
+        "width": 1, 
+        "height": 1
+      }, 
+      "type": "Convolution"
+    }, 
+    {
+      "top": "crop16to8_new", 
+      "crop_param": {
+        "offset": 0, 
+        "axis": 2
+      }, 
+      "type": "Crop", 
+      "name": "crop16to8_new", 
+      "bottom": [
+        "conv16to8_new", 
+        "up16to8_new"
+      ]
+    }, 
+    {
+      "top": "fuse16to8_new", 
+      "type": "Concat", 
+      "name": "fuse16to8_new", 
+      "bottom": [
+        "crop16to8_new", 
+        "up16to8_new"
+      ]
+    }, 
+    {
+      "name": "prescore", 
+      "bottom": [
+        "fuse16to8_new"
+      ], 
+      "top": "prescore", 
+      "convolution_param": {
+        "kernel_w": 0, 
+        "pad_h": 0, 
+        "group": 1, 
+        "num_output": 2, 
+        "weight_filler": {
+          "std": 1, 
+          "variance_norm": 0, 
+          "min": 0, 
+          "max": 1, 
+          "value": 0, 
+          "sparse": -1, 
+          "type": "xavier", 
+          "mean": 0
+        }, 
+        "stride_w": 0, 
+        "stride_h": 0, 
+        "pad": 0, 
+        "kernel_h": 0, 
+        "pad_w": 0, 
+        "bias_term": true, 
+        "kernel_size": 1, 
+        "axis": 1
+      }, 
+      "weights_shape": {
+        "input_features": 112, 
+        "output_features": 2, 
+        "width": 1, 
+        "height": 1
+      }, 
+      "type": "Convolution"
+    }, 
+    {
+      "name": "upscore", 
+      "bottom": [
+        "prescore"
+      ], 
+      "top": "upscore", 
+      "convolution_param": {
+        "kernel_w": 0, 
+        "pad_h": 0, 
+        "group": 2, 
+        "stride_w": 0, 
+        "num_output": 2, 
+        "stride": 8, 
+        "stride_h": 0, 
+        "kernel_h": 0, 
+        "pad_w": 0, 
+        "bias_term": false, 
+        "kernel_size": 15, 
+        "axis": 1
+      }, 
+      "weights_shape": {
+        "input_features": 1, 
+        "output_features": 2, 
+        "width": 15, 
+        "height": 15
+      }, 
+      "type": "Deconvolution"
+    }, 
+    {
+      "name": "up_tiny2vga", 
+      "bottom": [
+        "upscore"
+      ], 
+      "top": "up_tiny2vga", 
+      "convolution_param": {
+        "kernel_w": 0, 
+        "pad_h": 0, 
+        "group": 2, 
+        "stride_w": 0, 
+        "num_output": 2, 
+        "stride": 2, 
+        "stride_h": 0, 
+        "kernel_h": 0, 
+        "pad_w": 0, 
+        "bias_term": false, 
+        "kernel_size": 2, 
+        "axis": 1
+      }, 
+      "weights_shape": {
+        "input_features": 1, 
+        "output_features": 2, 
+        "width": 2, 
+        "height": 2
+      }, 
+      "type": "Deconvolution"
+    }, 
+    {
+      "top": "score", 
+      "crop_param": {
+        "offset": 0, 
+        "axis": 2
+      }, 
+      "type": "Crop", 
+      "name": "score", 
+      "bottom": [
+        "up_tiny2vga", 
+        "data"
+      ]
+    }
+  ], 
+  "compatibility": 0
+}
